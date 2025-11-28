@@ -1,22 +1,22 @@
 import Link from "next/link";
 
 const cities = [
-  { name: "Dallol", country: "ET" },
-  { name: "Fairbanks", country: "US" },
-  { name: "London", country: "GB" },
-  { name: "Recife", country: "BR" },
-  { name: "Vancouver", country: "CA" },
-  { name: "Yakutsk", country: "RU" },
+  { id: "dallol", name: "Dallol", country: "ET" },
+  { id: "fairbanks", name: "Fairbanks", country: "US" },
+  { id: "london", name: "London", country: "GB" },
+  { id: "recife", name: "Recife", country: "BR" },
+  { id: "vancouver", name: "Vancouver", country: "CA" },
+  { id: "yakutsk", name: "Yakutsk", country: "RU" },
 ];
 
 export default function Home() {
   return (
-    <main style={styles.container}>
-      <h1 style={styles.title}>Weather</h1>
-      <p style={styles.subtitle}>Select a city</p>
+    <main className="min-h-screen bg-[radial-gradient(circle_at_top,_#000,_#000000e0)] text-white flex flex-col items-center justify-center px-4">
+      
+      <h1 className="text-5xl font-light mb-1">Weather</h1>
+      <p className="opacity-70 mb-8">Select a city</p>
 
-
-      <div style={{ marginBottom: 50 }}>
+      <div className="mb-12">
         <img
           src="/Vector.svg"
           alt="Globe Icon"
@@ -25,12 +25,12 @@ export default function Home() {
         />
       </div>
 
-      <div style={styles.grid}>
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-5">
         {cities.map((city) => (
           <Link
-            key={city.name}
-            href={`/city/${city.name}`}
-            style={styles.card}
+            key={city.id}
+            href={`/city/${city.id}`}
+            className="px-6 py-3 rounded-xl text-center border border-white/20 hover:bg-white hover:text-black transition"
           >
             {city.name}
           </Link>
@@ -39,35 +39,3 @@ export default function Home() {
     </main>
   );
 }
-
-const styles = {
-  container: {
-    minHeight: "100vh",
-    background: "radial-gradient(circle at top, #000000ff, #000)",
-    color: "#fff",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: "2.5rem",
-  },
-  subtitle: {
-    opacity: 0.7,
-    marginBottom: 20,
-  },
-  grid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(3, 1fr)",
-    gap: 25,
-  },
-  card: {
-    textDecoration: "none",
-    color: "white",
-    borderRadius: 12,
-    padding: "20px 40px",
-    transition: "0.3s",
-    textAlign: "center",
-  },
-};
