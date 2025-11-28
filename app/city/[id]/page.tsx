@@ -156,14 +156,15 @@ export default function CityPage() {
           ))}
         </section>
 
-        {/* WeatherStats com espaço correto */}
+      
         <div className="mt-40">
           <WeatherStats
-            wind={data.current.wind_kph}
-            sunrise={data.forecast.forecastday[0].astro.sunrise}
-            sunset={data.forecast.forecastday[0].astro.sunset}
-            humidity={data.current.humidity}
-          />
+          wind={data?.current?.wind_kph ?? 0}
+          sunrise={data?.forecast?.forecastday?.[0]?.astro?.sunrise ?? "---"}
+          sunset={data?.forecast?.forecastday?.[0]?.astro?.sunset ?? "---"}
+          humidity={data?.current?.humidity ?? 0}
+        />
+
         </div>
 
       </div>
