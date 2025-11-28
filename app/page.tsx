@@ -13,11 +13,28 @@ const cities = [
 
 export default function Home() {
   return (
-    <main style={styles.container}>
-      <h1 style={styles.title}>Weather</h1>
-      <p style={styles.subtitle}>Select a city</p>
+    <main
+      className="min-h-screen w-full flex flex-col items-center justify-center"
+      style={{ color: "white" }} 
+    >
+      <h1
+        className="text-4xl font-semibold mb-2"
+        style={{ marginBottom: "8px" }}
+      >
+        Weather
+      </h1>
 
-      <div style={{ marginBottom: 50 }}>
+      <p
+        className="opacity-70 mb-10"
+        style={{ marginBottom: "40px" }}
+      >
+        Select a city
+      </p>
+
+      <div
+        className="mb-16"
+        style={{ marginBottom: "64px" }}
+      >
         <img
           src="/Vector.svg"
           alt="Globe Icon"
@@ -26,12 +43,26 @@ export default function Home() {
         />
       </div>
 
-      <div style={styles.grid}>
+      <div
+        className="grid grid-cols-3 gap-x-24 gap-y-10 text-center"
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(3, 1fr)",
+          columnGap: "96px",
+          rowGap: "40px",
+          textAlign: "center",
+        }}
+      >
         {cities.map((city) => (
           <Link
             key={city.name}
             href={`/city/${city.name}`}
-            style={styles.card}
+            className="transition hover:text-gray-400"
+            style={{
+              color: "white",        
+              textDecoration: "none", 
+              fontSize: "16px",
+            }}
           >
             {city.name}
           </Link>
@@ -40,35 +71,3 @@ export default function Home() {
     </main>
   );
 }
-
-const styles = {
-  container: {
-    minHeight: "100vh",
-    background: "radial-gradient(circle at top, #000000ff, #000)",
-    color: "#fff",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: "2.5rem",
-  },
-  subtitle: {
-    opacity: 0.7,
-    marginBottom: 20,
-  },
-  grid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(3, 1fr)",
-    gap: 25,
-  },
-  card: {
-    textDecoration: "none",
-    color: "white",
-    borderRadius: 12,
-    padding: "20px 40px",
-    transition: "0.3s",
-    textAlign: "center",
-  },
-};

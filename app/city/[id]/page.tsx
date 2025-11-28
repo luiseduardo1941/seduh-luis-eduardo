@@ -16,6 +16,7 @@ import { CITIES } from "@/lib/cities";
 import { fetchForecast } from "@/lib/api";
 import { getReferenceDateTimes } from "@/lib/timezone";
 import { ForecastResponse } from "@/lib/types";
+import WeatherStats from "@/components/WeatherStats";
 
 function normalize(str: string) {
   return str
@@ -53,15 +54,14 @@ export default function CityPage() {
   );
 
   function findHourFor(refUtcIso: string) {
-  const ref = DateTime.fromISO(refUtcIso);
-  return allHours.find((h) => {
-    const hLocal = DateTime.fromFormat(h.time, "yyyy-LL-dd HH:mm", {
-      zone: data!.location.tz_id,
+    const ref = DateTime.fromISO(refUtcIso);
+    return allHours.find((h) => {
+      const hLocal = DateTime.fromFormat(h.time, "yyyy-LL-dd HH:mm", {
+        zone: data!.location.tz_id,
+      });
+      return hLocal.toUTC().hasSame(ref, "hour");
     });
-    return hLocal.toUTC().hasSame(ref, "hour");
-  });
-}
-
+  }
 
   const tiles = [
     { label: "Amanhecer", ref: refs[0] },
@@ -114,23 +114,25 @@ export default function CityPage() {
       className={`min-h-screen flex items-center justify-center px-4 ${bgClass}`}
       style={{ color: finalTextColor }}
     >
-      <div className="w-full max-w-4xl text-center">
-        <h1 className="text-4xl font-light mb-1">{city.name}</h1>
-        <p className="text-sm mb-10 opacity-80">
-          {data.current.condition.text}
-        </p>
+      {/* Container principal */}
+      <div className="w-full max-w-4xl text-center flex flex-col items-center pt-20">
 
+        {/* Cidade e condição */}
+        <h1 className="text-4xl font-light mb-1">{city.name}</h1>
+        <p className="text-sm mb-10 opacity-80">{data.current.condition.text}</p>
+
+        {/* Temperatura */}
         <div className="mb-6">
-          <span className="text-[150px] font-light leading-none">
-            {Math.round(data.current.temp_c)}
-          </span>
+          <span className="text-[150px] font-light leading-none">{Math.round(data.current.temp_c)}</span>
           <span className="text-5xl align-super ml-2">°C</span>
         </div>
 
+        {/* Ícone principal */}
         <div className="flex justify-center mb-20">
           {getWeatherIcon(data.current.condition.text, 120)}
         </div>
 
+        {/* Tiles horários */}
         <section className="flex justify-center gap-32 mb-20 flex-wrap">
           {tiles.map((t) => (
             <div
@@ -153,6 +155,17 @@ export default function CityPage() {
             </div>
           ))}
         </section>
+
+        {/* WeatherStats com espaço correto */}
+        <div className="mt-40">
+          <WeatherStats
+            wind={data.current.wind_kph}
+            sunrise={data.forecast.forecastday[0].astro.sunrise}
+            sunset={data.forecast.forecastday[0].astro.sunset}
+            humidity={data.current.humidity}
+          />
+        </div>
+
       </div>
     </main>
   );
