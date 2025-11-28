@@ -16,7 +16,7 @@ import { CITIES } from "@/lib/cities";
 import { fetchForecast } from "@/lib/api";
 import { getReferenceDateTimes } from "@/lib/timezone";
 
-// --- Função para normalizar strings (remover acentos, espaços e maiúsculas)
+
 function normalize(str: string) {
   return str
     .normalize("NFD")
@@ -30,10 +30,8 @@ export default function CityPage() {
   const cityParam = Array.isArray(params.id) ? params.id[0] : params.id;
   if (!cityParam) return <div className="p-4 text-white">Cidade não encontrada</div>;
 
-  // Normaliza tanto o parâmetro quanto os IDs do CITIES
   const city = CITIES.find((c) => normalize(c.id) === normalize(cityParam));
 
-  // SWR para buscar dados da API
   const { data, error } = useSWR(
     city ? ["forecast", city.q] : null,
     city ? () => fetchForecast(city.q) : null
@@ -43,7 +41,7 @@ export default function CityPage() {
   if (error) return <div className="p-4 text-white">Erro ao carregar os dados</div>;
   if (!data) return <div className="p-4 text-white">Carregando...</div>;
 
-  // --- Lógica de horário ---
+  // --- horários ---
   const nowInCity = DateTime.now().setZone(city.tz);
   const dateISO = nowInCity.toFormat("yyyy-MM-dd");
   const refs = getReferenceDateTimes(dateISO, city.tz);
@@ -69,7 +67,7 @@ export default function CityPage() {
     hour: item.ref ? findHourFor(item.ref.utcISO) : null,
   }));
 
-  // --- Função de ícones ---
+
   function getWeatherIcon(text: string, size = 42) {
     const t = text.toLowerCase();
     if (t.includes("rain")) return <CloudRain size={size} />;
@@ -80,7 +78,6 @@ export default function CityPage() {
     return <Sun size={size} />;
   }
 
-  // --- Cores de fundo e texto ---
   const condition = data.current.condition.text.toLowerCase();
   let bgClass = "bg-[#36A8F6]";
   let textClass = "text-white";
