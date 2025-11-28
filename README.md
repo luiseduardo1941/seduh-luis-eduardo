@@ -28,7 +28,7 @@ Aplicação web que permite listar e selecionar cidades pré-definidas, exibindo
 
 ## 🛠 Como Rodar Localmente
 ```bash
-git clone https://github.com/seu-usuario/desafio-de-front-end-seduh.git
+git clone https://github.com/luiseduardo1941/seduh-luis-eduardo.git
 cd desafio-de-front-end-seduh
 npm install
 npm start
