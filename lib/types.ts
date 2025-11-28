@@ -1,21 +1,40 @@
-export interface Condition {
-  text: string;
-  icon: string;
-}
-
-export interface HourData {
-  time: string;
-  temp_c: number;
-  condition: Condition;
-}
-
-export interface ForecastDay {
-  date: string;
-  hour: HourData[];
-}
-
 export interface ForecastResponse {
+  location: {
+    name: string;
+    region: string;
+    country: string;
+    tz_id: string;
+    localtime: string;
+  };
+
+  current: {
+    temp_c: number;
+    condition: {
+      text: string;
+      icon: string;
+      code: number;
+    };
+  };
+
   forecast: {
-    forecastday: ForecastDay[];
+    forecastday: {
+      date: string;
+      day: {
+        maxtemp_c: number;
+        mintemp_c: number;
+        condition: {
+          text: string;
+          icon: string;
+        };
+      };
+      hour: {
+        time: string;
+        temp_c: number;
+        condition: {
+          text: string;
+          icon: string;
+        };
+      }[];
+    }[];
   };
 }
