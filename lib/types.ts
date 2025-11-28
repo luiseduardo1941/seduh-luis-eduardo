@@ -9,6 +9,8 @@ export interface ForecastResponse {
 
   current: {
     temp_c: number;
+    wind_kph: number;     
+    humidity: number;     
     condition: {
       text: string;
       icon: string;
