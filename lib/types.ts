@@ -9,8 +9,8 @@ export interface ForecastResponse {
 
   current: {
     temp_c: number;
-    wind_kph: number;     
-    humidity: number;     
+    wind_kph: number;
+    humidity: number;
     condition: {
       text: string;
       icon: string;
@@ -28,6 +28,10 @@ export interface ForecastResponse {
           text: string;
           icon: string;
         };
+      };
+      astro: {
+        sunrise: string;
+        sunset: string;
       };
       hour: {
         time: string;
