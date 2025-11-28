@@ -53,14 +53,15 @@ export default function CityPage() {
   );
 
   function findHourFor(refUtcIso: string) {
-    const ref = DateTime.fromISO(refUtcIso);
-    return allHours.find((h) => {
-      const hLocal = DateTime.fromFormat(h.time, "yyyy-LL-dd HH:mm", {
-        zone: data.location.tz_id,
-      });
-      return hLocal.toUTC().hasSame(ref, "hour");
+  const ref = DateTime.fromISO(refUtcIso);
+  return allHours.find((h) => {
+    const hLocal = DateTime.fromFormat(h.time, "yyyy-LL-dd HH:mm", {
+      zone: data!.location.tz_id,
     });
-  }
+    return hLocal.toUTC().hasSame(ref, "hour");
+  });
+}
+
 
   const tiles = [
     { label: "Amanhecer", ref: refs[0] },
